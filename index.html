@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Facts</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f0f2f5;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        #fact-display {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 20px;
+            min-height: 100px;
+            color: #34495e;
+        }
+
+        #next-fact {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        #next-fact:hover {
+            background: #2980b9;
+        }
+
+        #fact-number {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Developer Facts</h1>
+        <div id="fact-display"></div>
+        <div id="fact-number"></div>
+        <button id="next-fact">Next Fact</button>
+    </div>
+
+    <script>
+        const facts = {
+            "developer_facts": [
+                {
+                    "id": 1,
+                    "fact": "The first programmer in history was Ada Lovelace, who wrote the first algorithm intended for processing on a computer"
+                },
+                {
+                    "id": 2,
+                    "fact": "According to studies, developers spend about 30-40% of their time debugging code"
+                },
+                {
+                    "id": 3,
+                    "fact": "The term 'bug' in programming originated when a moth got trapped in a relay of the Harvard Mark II computer in 1947"
+                },
+                {
+                    "id": 4,
+                    "fact": "The average developer types between 50-70 words per minute"
+                },
+                {
+                    "id": 5,
+                    "fact": "Stack Overflow receives over 50 million visitors each month seeking programming help"
+                },
+                {
+                    "id": 6,
+                    "fact": "Python was named after Monty Python, not the snake"
+                },
+                {
+                    "id": 7,
+                    "fact": "The most common programming error is missing a semicolon or parenthesis"
+                },
+                {
+                    "id": 8,
+                    "fact": "JavaScript was created in just 10 days by Brendan Eich in 1995"
+                },
+                {
+                    "id": 9,
+                    "fact": "The first computer virus was created in 1983 and was called the 'Elk Cloner'"
+                },
+                {
+                    "id": 10,
+                    "fact": "Developers drink 2-3 cups of coffee on average per day"
+                },
+                {
+                    "id": 11,
+                    "fact": "The most dreaded programming task according to surveys is maintaining legacy code"
+                },
+                {
+                    "id": 12,
+                    "fact": "75% of developers use Stack Overflow while working"
+                },
+                {
+                    "id": 13,
+                    "fact": "The average developer knows 4 programming languages"
+                },
+                {
+                    "id": 14,
+                    "fact": "GitHub hosts over 200 million repositories as of 2023"
+                },
+                {
+                    "id": 15,
+                    "fact": "Linux, one of the most popular operating systems, contains over 27.8 million lines of code"
+                },
+                {
+                    "id": 16,
+                    "fact": "The first website ever created is still online at info.cern.ch"
+                },
+                {
+                    "id": 17,
+                    "fact": "Developer productivity peaks during the morning hours between 9 AM and 11 AM"
+                },
+                {
+                    "id": 18,
+                    "fact": "Over 70% of developers work remotely at least part of the time post-COVID"
+                },
+                {
+                    "id": 19,
+                    "fact": "The average salary for software developers worldwide varies from $33,000 to $107,000"
+                },
+                {
+                    "id": 20,
+                    "fact": "The most popular IDE among developers is Visual Studio Code"
+                }
+            ]
+        };
+
+        let currentFactIndex = 0;
+
+        function displayFact(index) {
+            const factDisplay = document.getElementById('fact-display');
+            const factNumber = document.getElementById('fact-number');
+            const fact = facts.developer_facts[index];
+            factDisplay.textContent = fact.fact;
+            factNumber.textContent = `Fact ${fact.id} of ${facts.developer_facts.length}`;
+        }
+
+        document.getElementById('next-fact').addEventListener('click', () => {
+            currentFactIndex = (currentFactIndex + 1) % facts.developer_facts.length;
+            displayFact(currentFactIndex);
+        });
+
+        // Display first fact when page loads
+        displayFact(0);
+    </script>
+</body>
+</html>
