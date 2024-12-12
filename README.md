@@ -13,7 +13,7 @@ A clean, interactive web application that showcases interesting facts about deve
 
 ## 🚀 Live Demo
 
-[Add your live demo link here]
+https://hakashikatake.github.io/Random-Developer-Facts/
 
 ## 🛠️ Technologies Used
 
