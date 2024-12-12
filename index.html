@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer Facts</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Arial', sans-serif;
             display: flex;
@@ -13,50 +19,138 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            background: #f0f2f5;
+            background: #1a1a1a;
+            transition: background 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #2980b9, #2c3e50);
+            opacity: 0.8;
+            z-index: -1;
+            transition: all 0.5s ease;
         }
 
         .container {
             text-align: center;
-            max-width: 600px;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 90%;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         h1 {
-            color: #2c3e50;
+            color: #ffffff;
             margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         #fact-display {
-            font-size: 1.2em;
+            font-size: 1.3em;
             line-height: 1.6;
-            margin: 20px;
-            min-height: 100px;
-            color: #34495e;
+            margin: 30px;
+            min-height: 120px;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         #next-fact {
             background: #3498db;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 1.1em;
-            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         #next-fact:hover {
             background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
 
         #fact-number {
-            font-size: 0.9em;
-            color: #7f8c8d;
-            margin-top: 10px;
+            font-size: 1em;
+            color: #ffffff;
+            margin-top: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Background themes based on fact categories */
+        .theme-coding {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+        }
+
+        .theme-history {
+            background: linear-gradient(45deg, #8e44ad, #2980b9);
+        }
+
+        .theme-statistics {
+            background: linear-gradient(45deg, #16a085, #2ecc71);
+        }
+
+        .theme-lifestyle {
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            #fact-display {
+                font-size: 1.1em;
+                margin: 15px;
+                min-height: 100px;
+            }
+
+            #next-fact {
+                padding: 12px 24px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            #fact-display {
+                font-size: 1em;
+                margin: 10px;
+            }
         }
     </style>
 </head>
@@ -156,12 +250,32 @@
 
         let currentFactIndex = 0;
 
+        function getFactTheme(factId) {
+            // Determine theme based on fact content
+            if (factId <= 5) return 'theme-history';
+            if (factId <= 10) return 'theme-coding';
+            if (factId <= 15) return 'theme-statistics';
+            return 'theme-lifestyle';
+        }
+
         function displayFact(index) {
             const factDisplay = document.getElementById('fact-display');
             const factNumber = document.getElementById('fact-number');
             const fact = facts.developer_facts[index];
-            factDisplay.textContent = fact.fact;
-            factNumber.textContent = `Fact ${fact.id} of ${facts.developer_facts.length}`;
+            
+            // Add fade out effect
+            factDisplay.style.opacity = 0;
+            
+            setTimeout(() => {
+                factDisplay.textContent = fact.fact;
+                factNumber.textContent = `Fact ${fact.id} of ${facts.developer_facts.length}`;
+                
+                // Change background theme
+                document.body.className = getFactTheme(fact.id);
+                
+                // Fade in effect
+                factDisplay.style.opacity = 1;
+            }, 300);
         }
 
         document.getElementById('next-fact').addEventListener('click', () => {
